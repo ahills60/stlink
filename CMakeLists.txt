@@ -4,10 +4,10 @@
 
 cmake_minimum_required(VERSION 3.10.2)
 cmake_policy(SET CMP0042 NEW)
-set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake/modules)
-set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
-set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules)
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/lib)
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/lib)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/bin)
 
 set(CMAKE_C_STANDARD 11)
 set(CMAKE_C_STANDARD_REQUIRED ON)
@@ -48,7 +48,7 @@ set(CMAKE_C_EXTENSIONS ON)
 #
 # ${CMAKE_SOURCE_DIR}
 # This is the full path to the top level of the current CMake source tree.
-# For an in-source build, this would be the same as CMAKE_BINARY_DIR.
+# For an in-source build, this would be the same as CMAKE_CURRENT_BINARY_DIR.
 #
 # ${CMAKE_CURRENT_BINARY_DIR}
 # The path to the binary directory currently being processed.
@@ -351,11 +351,11 @@ install(TARGETS st-trace DESTINATION ${CMAKE_INSTALL_BINDIR})
 if (CMAKE_SYSTEM_NAME STREQUAL "Linux")
     ## Install modprobe.d conf files to /etc/modprobe.d/ (explicitly hardcoded)
     set(STLINK_MODPROBED_DIR "/etc/modprobe.d" CACHE PATH "modprobe.d directory")
-    install(FILES ${CMAKE_SOURCE_DIR}/config/modprobe.d/stlink_v1.conf DESTINATION ${STLINK_MODPROBED_DIR})
+    install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/config/modprobe.d/stlink_v1.conf DESTINATION ${STLINK_MODPROBED_DIR})
 
     ## Install udev rules files to /lib/udev/rules.d/ (explicitly hardcoded)
     set(STLINK_UDEV_RULES_DIR "/lib/udev/rules.d" CACHE PATH "udev rules directory")
-    file(GLOB RULES_FILES ${CMAKE_SOURCE_DIR}/config/udev/rules.d/*.rules)
+    file(GLOB RULES_FILES ${CMAKE_CURRENT_SOURCE_DIR}/config/udev/rules.d/*.rules)
     install(FILES ${RULES_FILES} DESTINATION ${STLINK_UDEV_RULES_DIR})
 endif()
 
@@ -371,7 +371,7 @@ else ()
     set(CMAKE_CHIPS_DIR ${CMAKE_INSTALL_FULL_DATADIR}/${PROJECT_NAME}/config/chips)
 endif()
 add_definitions( -DSTLINK_CHIPS_DIR="${CMAKE_CHIPS_DIR}" )
-file(GLOB CHIP_FILES ${CMAKE_SOURCE_DIR}/config/chips/*.chip)
+file(GLOB CHIP_FILES ${CMAKE_CURRENT_SOURCE_DIR}/config/chips/*.chip)
 install(FILES ${CHIP_FILES} DESTINATION ${CMAKE_CHIPS_DIR})
 
 # Documentation / manpages
