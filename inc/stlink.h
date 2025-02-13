@@ -278,6 +278,7 @@ int32_t stlink_target_connect(stlink_t *sl, enum connect_type connect);
 #include <usb.h>
 #include <version.h>
 #include <logging.h>
+#include <read_write.h>
 
 #ifdef __cplusplus
 }
